@@ -101,16 +101,34 @@ por lá.
 Estamos mudando a forma de subida dos dados para facilitar o trabalho dos voluntários e deixar o processo mais robusto e confiável e, com isso, será mais fácil que robôs possam subir também os dados; dessa forma, os scrapers ajudarão *bastante* no processo. Porém, ao criar um scraper é importante que você siga algumas regras:
 
 - **Necessário** fazer o scraper usando o `scrapy`;
-- **Não usar** `pandas`, `BeautifulSoap`, `requests` ou outras bibliotecas desnecessárias (a std lib do Python já tem muita biblioteca útil, o `scrapy` com XPath já dá conta de boa parte das raspagens e `rows` já é uma dependência desse repositório);
-- Deve existir alguma maneira fácil de fazer o scraper coletar os boletins e casos para uma data específica (mas ele deve ser capaz de identificar para quais datas os dados disponíveis e de capturar várias datas também);
-- O método de parsing deve devolver (com `yield`) um dicionário com as seguintes chaves:
-  - `date`: data no formato `"YYYY-MM-DD"`
-  - `state`: sigla do estado, com 2 caracteres maiúsculos (deve ser um atributo da classe do spider e usar `self.state`)
-  - `city` (nome do município ou em branco, caso seja o valor do estado, deve ser `None`)
-  - `place_type`: `"city"` para município e `"state"` para estado
+- **Não usar** `pandas`, `BeautifulSoap`, `requests` ou outras bibliotecas
+  desnecessárias (a std lib do Python já tem muita biblioteca útil, o `scrapy`
+  com XPath já dá conta de boa parte das raspagens e `rows` já é uma
+  dependência desse repositório);
+- Criar um arquivo `web/spiders/spider_xx.py`, onde `xx` é a sigla do estado,
+  em minúsculas. Criar uma nova classe e herdar da classe `BaseCovid19Spider`,
+  do `base.py`. A sigla do estado, com 2 caracteres maiúsculos, deve ser um
+  atributo da classe do spider e usar `self.state`. Veja os exemplos já
+  implementados;
+- Deve existir alguma maneira fácil de fazer o scraper coletar os boletins e
+  casos para uma data específica (mas ele deve ser capaz de identificar para
+  quais datas os dados disponíveis e de capturar várias datas também);
+- A leitura pode ser feita a partir de contagens por município ou de microdados
+  de casos individuais. Neste caso, é necessário que o próprio scraper calcule
+  os totais por município;
+- O método `parse` deve chamar o método `self.add_report(date, url)`, sendo
+  `date` a data do relatório e `url` a URL da fonte de informação;
+- Para cada município no estado, chamar o método `self.add_city_case` com os
+  seguintes parâmetros:
+  - `city`: nome do município
   - `confirmed`: inteiro, número de casos confirmados (ou `None`)
-  - `deaths`: inteiro, número de mortes naquele dia (ou `None`)
-  - **ATENÇÃO**: o scraper deve devolver sempre um registro para o estado que *não seja* a soma dos valores por município (esse dado deve ser extraído da linha "total no estado" no boletim) - essa linha virá com a coluna `city` com o valor `None` e `place_type` com `"state"` - esse dado apenas deve vir preenchido como sendo a soma dos valores municipais *caso o boletim não tenha os dados totais*;
+  - `death`: inteiro, número de óbitos naquele dia (ou `None`)
+- Ler os totais do estado a partir da fonte da informação, se estiver
+  disponível. Deve-se somar os números de cada município *somente se essa
+  informação não estiver disponível na fonte original*. Incluir os números
+  totais no estado chamando o método
+  `self.add_state_case`. Os parâmetros são os mesmos do método usado para o
+  município, exceto pela omissão do parâmetro `city`;
 - Quando possível, use testes automatizados.
 
 Nesse momento não temos muito tempo disponível para revisão, então **por favor**, só crie um *pull request* com código de um novo scraper caso você possa cumprir os requisitos acima.
