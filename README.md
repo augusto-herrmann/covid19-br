@@ -144,6 +144,8 @@ Necessita de Python 3 (testado em 3.8.2). Para montar seu ambiente:
 - Instale as dependências: `pip install -r requirements.txt`
 - Rode o script de coleta: `./run-spiders.sh`
 - Rode o script de consolidação: `./run.sh`
+- Rode o script que sobe o serviço de scraping: `./web.sh`
+  - Os scrapers estarão disponíveis por uma interface web a partir do endereço http://localhost:5000
 
 Verifique o resultado em `data/output`.
 

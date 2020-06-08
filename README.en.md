@@ -114,6 +114,8 @@ Requires Python 3 (tested in 3.8.2). To set up your environment:
 - Install the dependencies: `pip install -r requirements.txt`
 - Run the collect script: `./run-spiders.sh`
 - Run the consolidation script: `./run.sh`
+- Run the script that starts the scraping service: `./web.sh`
+  - The scrapers will be available through a web interface at the URL http://localhost:5000
 
 Check the output in `data/output`.
 
