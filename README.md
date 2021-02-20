@@ -17,8 +17,12 @@ ShareAlike](https://creativecommons.org/licenses/by-sa/4.0/). Caso utilize os
 dados, **cite a fonte original e quem tratou os dados** e caso compartilhe os
 dados, **utilize a mesma licença**.
 Exemplos de como os dados podem ser citados:
-- **Fonte: Secretarias de Saúde das Unidades Federativas, dados tratados por Álvaro Justen e equipe de voluntários [Brasil.IO](https://brasil.io/)**
-- **Brasil.IO: boletins epidemiológicos da COVID-19 por município por dia, disponível em: https://brasil.io/dataset/covid19/ (última atualização: XX de XX de XXXX, acesso em XX de XX de XXXX).**
+- **Fonte: Secretarias de Saúde das Unidades Federativas, dados tratados
+  por Álvaro Justen e equipe de voluntários
+  [Brasil.IO](https://brasil.io/)**
+- **Brasil.IO: boletins epidemiológicos da COVID-19 por município por
+  dia, disponível em: https://brasil.io/dataset/covid19/ (última
+  atualização: XX de XX de XXXX, acesso em XX de XX de XXXX).**
 
 
 ## Dados
@@ -27,7 +31,8 @@ Depois de coletados e checados os dados ficam disponíveis de 3 formas no
 [Brasil.IO](https://brasil.io/):
 
 - [Interface Web](https://brasil.io/dataset/covid19) (feita para humanos)
-- [API](https://brasil.io/api/dataset/covid19) (feita para humanos que desenvolvem programas) - [veja a documentação da API](api.md)
+- [API](https://brasil.io/api/dataset/covid19) (feita para humanos que
+  desenvolvem programas) - [veja a documentação da API](api.md)
 - [Download do dataset completo](https://data.brasil.io/dataset/covid19/_meta/list.html)
 
 Caso queira acessar os dados antes de serem publicados (ATENÇÃO: pode ser que
@@ -81,7 +86,8 @@ pelo site [Goodtables.io](http://goodtables.io/).
 
 Você pode contribuir de diversas formas:
 
-- Criando programas (crawlers/scrapers/spiders) para extrair os dados automaticamente ([LEIA ISSO ANTES](#criando-scrapers));
+- Criando programas (crawlers/scrapers/spiders) para extrair os dados
+  automaticamente ([LEIA ISSO ANTES](#criando-scrapers));
 - Coletando links para os boletins de seu estado;
 - Coletando dados sobre os casos por município por dia;
 - Entrando em contato com a secretaria estadual de seu estado, sugerindo as
@@ -98,7 +104,11 @@ por lá.
 
 ### Criando Scrapers
 
-Estamos mudando a forma de subida dos dados para facilitar o trabalho dos voluntários e deixar o processo mais robusto e confiável e, com isso, será mais fácil que robôs possam subir também os dados; dessa forma, os scrapers ajudarão *bastante* no processo. Porém, ao criar um scraper é importante que você siga algumas regras:
+Estamos mudando a forma de subida dos dados para facilitar o trabalho
+dos voluntários e deixar o processo mais robusto e confiável e, com
+isso, será mais fácil que robôs possam subir também os dados; dessa
+forma, os scrapers ajudarão *bastante* no processo. Porém, ao criar um
+scraper é importante que você siga algumas regras:
 
 - **Necessário** fazer o scraper usando o `scrapy`;
 - **Não usar** `pandas`, `BeautifulSoup`, `requests` ou outras bibliotecas
@@ -131,7 +141,9 @@ Estamos mudando a forma de subida dos dados para facilitar o trabalho dos volunt
   município, exceto pela omissão do parâmetro `city`;
 - Quando possível, use testes automatizados.
 
-Nesse momento não temos muito tempo disponível para revisão, então **por favor**, só crie um *pull request* com código de um novo scraper caso você possa cumprir os requisitos acima.
+Nesse momento não temos muito tempo disponível para revisão, então **por
+favor**, só crie um *pull request* com código de um novo scraper caso
+você possa cumprir os requisitos acima.
 
 ## Instalando
 
@@ -145,13 +157,15 @@ Necessita de Python 3 (testado em 3.8.2). Para montar seu ambiente:
 - Rode o script de coleta: `./run-spiders.sh`
 - Rode o script de consolidação: `./run.sh`
 - Rode o script que sobe o serviço de scraping: `./web.sh`
-  - Os scrapers estarão disponíveis por uma interface web a partir do endereço http://localhost:5000
+  - Os scrapers estarão disponíveis por uma interface web a partir do
+    endereço http://localhost:5000
 
 Verifique o resultado em `data/output`.
 
 ### Docker
 
-Se você preferir utilizar o Docker para executar, basta usar os comandos a seguir :
+Se você preferir utilizar o Docker para executar, basta usar os comandos
+a seguir:
 
 ```shell
 make docker-build       # para construir a imagem
